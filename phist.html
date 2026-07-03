@@ -3,400 +3,293 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+    <title>Product Report</title>
 
-<title>
-Purchase Management
-</title>
+    <link
+        rel="stylesheet"
+        href="CSS/pr.css">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
->
-
-<link
-rel="stylesheet"
-href="ADMIN/phist.css"
->
-
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="report-page">
+
+    <!-- HAMBURGER MENU -->
+    <button id="menuToggle" class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- HEADER -->
+    <header class="report-header">
+
+        <div>
+            <h1>Product Report</h1>
+            <p>Product performance and inventory analytics</p>
+        </div>
+
+        <div class="header-actions">
+
+            <a href="index.html">
+                <i class="fas fa-cash-register"></i>
+                POS
+            </a>
+
+            <a href="phist.html">
+                <i class="fas fa-chart-line"></i>
+                Reports
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <section class="report-layout">
 
-<!-- HEADER -->
+        <!-- SIDEBAR -->
+        <aside class="report-sidebar" id="sidebar">
 
-<div class="header">
+            <div class="stat-card">
+                <span>Products</span>
+                <h2 id="totalProducts">0</h2>
+            </div>
 
-<h1>
+            <div class="stat-card">
+                <span>Inventory Value</span>
+                <h2 id="inventoryValue">K0.00</h2>
+            </div>
 
-Purchase Management
+            <div class="stat-card">
+                <span>Units Sold</span>
+                <h2 id="unitsSold">0</h2>
+            </div>
 
-</h1>
+            <div class="stat-card">
+                <span>Profit</span>
+                <h2 id="profitToday">K0.00</h2>
+            </div>
 
-<div>
+            <div class="stat-card warning">
+                <span>Low Stock</span>
+                <h2 id="lowStockCount">0</h2>
+            </div>
 
-<a
-href="phistTable.html"
-class="btn add"
-id="purTableButton">
+            <div class="stat-card danger">
+                <span>Out Of Stock</span>
+                <h2 id="outStockCount">0</h2>
+            </div>
 
-<i class="fas fa-eye"></i>
+            <h3>More</h3>
 
-Show items
+            <hr>
+            <a href="createStaff.html">
+                <i class="fas fa-user"></i>
+                Create User
+            </a>
+            <a href="products.html">
+                <i class="fas fa-box"></i>
+                Products
+            </a>
 
-</a>
+            <a href="purchase.html">
+                <i class="fas fa-shopping-cart"></i>
+                Purchase
+            </a>
 
-<a
-href="products.html"
-class="btn add"
->
+            <a href="reports.html">
+                <i class="fas fa-chart-line"></i>
+                Reports
+            </a>
+            <a href="sales.html">
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-clock"></i>
+                Sales History
+            </a>
+            <a href="phistTable.html">
+                <i class="fas fa-history"></i>
+                Sales History
+            </a>
 
-<i class="fas fa-plus"></i>
+            <a href="pr.html" onclick="abomination()">
+                <i class="fas fa-lock"></i>
+                Reset App
+            </a>
 
-Products / Stock
+            <hr>
 
-</a>
+        </aside>
 
+        <!-- CONTENT -->
+        <main class="report-content">
 
-<a
-href="purchase.html"
-class="btn add"
->
+            <!-- FILTER BAR -->
+            <section class="filter-bar">
 
-<i class="fas fa-plus"></i>
+                <div class="search-box">
 
-New Purchase
+                    <i class="fas fa-search"></i>
 
-</a>
+                    <input
+                        type="text"
+                        id="productSearch"
+                        placeholder="Search product...">
 
+                </div>
 
-<a
-href="index.html"
-class="btn"
->
+                <select id="categoryFilter">
 
-Back To POS
+                    <option value="">
+                        All Categories
+                    </option>
 
-</a>
+                </select>
 
-</div>
+                <select id="periodFilter">
 
-</div>
+                    <option value="today">
+                        Today
+                    </option>
 
+                    <option value="week">
+                        This Week
+                    </option>
 
-<!-- TOOLBAR -->
+                    <option value="month">
+                        This Month
+                    </option>
 
-<div class="toolbar">
+                    <option value="all">
+                        All Time
+                    </option>
 
-<div class="search-wrapper">
+                </select>
 
-<i class="fas fa-search"></i>
+                <button id="exportExcelBtn">
+                    <i class="fas fa-file-excel"></i>
+                    Excel
+                </button>
 
-<input
-type="text"
-id="purchaseSearch"
-placeholder="Search supplier or receipt..."
->
+                <button id="exportPdfBtn">
+                    <i class="fas fa-file-pdf"></i>
+                    PDF
+                </button>
 
-</div>
+            </section>
 
-</div>
+            <!-- PRODUCT TABLE -->
+            <section class="table-card">
 
+                <div class="table-header">
 
+                    <h2>Product Performance</h2>
 
-<!-- PURCHASE TABLE -->
+                    <span id="recordCount">
+                        0 Products
+                    </span>
 
-<div class="table-wrapper">
+                </div>
 
-<table>
+                <div class="table-wrapper">
 
-<thead>
+                    <table>
 
-<tr>
+                        <thead>
 
-<th>Receipt ID</th>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Opening</th>
+                                <th>Purchased</th>
+                                <th>Sold</th>
+                                <th>Stock</th>
+                                <th>Cost</th>
+                                <th>Price</th>
+                                <th>Revenue</th>
+                                <th>Profit</th>
+                                <th>Status</th>
+                            </tr>
 
-<th>Supplier</th>
+                        </thead>
 
-<th>Date</th>
+                        <tbody id="reportTableBody">
 
-<th>Items</th>
+                        </tbody>
 
-<th>Total</th>
+                    </table>
 
-<th></th>
+                </div>
 
-<th>Actions</th>
+            </section>
 
-</tr>
+        </main>
 
-</thead>
-
-<tbody
-id="purchaseTableBody"
->
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-
-<!-- VIEW PURCHASE MODAL -->
-
-<div
-class="modal"
-id="purchaseActionModal"
->
-
-<div
-class="modal-content action-modal"
->
-
-<div class="modal-header">
-
-<h2
-id="receiptTitle"
->
-
-Purchase
-
-</h2>
-
-<button
-id="closePurchaseModal"
->
-
-<i class="fas fa-times"></i>
-
-</button>
-
-</div>
-
-
-<div
-class="purchase-details"
->
-
-<p>
-
-<strong>Supplier:</strong>
-
-<span
-id="purchaseSupplier"
-></span>
-
-</p>
-
-
-<p>
-
-<strong>Date:</strong>
-
-<span
-id="purchaseDate"
-></span>
-
-</p>
-
-
-<p>
-
-<strong>Total:</strong>
-
-<span
-id="purchaseTotal"
-></span>
-
-</p>
-
-</div>
-
-
-<h3 class="section-title">
-
-Purchased Items
-
-</h3>
-
-
-<div
-class="items-wrapper"
->
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Name</th>
-
-<th>Qty</th>
-
-<th>Cost</th>
-
-<th>Subtotal</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="purchaseItemsTable"
->
-
-</tbody>
-
-</table>
+    </section>
 
 </div>
 
 
+<!-- SIDEBAR SCRIPT -->
+<script>
 
-<div
-class="action-buttons"
->
+const menuBtn = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("sidebarOverlay");
 
-<button
-id="editPurchaseBtn"
->
+menuBtn.addEventListener("click", ()=>{
 
-<i class="fas fa-pen"></i>
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
 
-Edit Purchase
-
-</button>
-
-
-<button
-id="deletePurchaseBtn"
->
-
-<i class="fas fa-trash"></i>
-
-Delete Purchase
-
-</button>
-
-</div>
-
-</div>
-
-</div>
+});
 
 
+overlay.addEventListener("click", ()=>{
+
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+
+});
 
 
-<!-- EDIT PURCHASE MODAL -->
+// Optional desktop hover behavior
 
-<div
-class="modal"
-id="editPurchaseModal"
->
+if(window.innerWidth > 992){
 
-<div
-class="modal-content"
->
+    sidebar.addEventListener("mouseenter", ()=>{
 
-<h2>
+        sidebar.classList.add("active");
 
-Edit Purchase
+    });
 
-</h2>
+    sidebar.addEventListener("mouseleave", ()=>{
 
+        sidebar.classList.remove("active");
 
-<input
-type="hidden"
-id="editPurchaseId"
->
+    });
 
+}
 
-<h3 class="labo">
-
-Supplier
-
-</h3>
-
-<input
-id="editSupplier"
-type="text"
-placeholder="Supplier Name"
->
-
-
-<div
-class="edit-items-container"
-id="editItemsContainer"
->
-
-</div>
-
-
-<button
-class="add-item-btn"
-id="addItemBtn"
->
-
-<i class="fas fa-plus"></i>
-
-Add Item
-
-</button>
-
-
-<div
-class="modal-actions"
->
-
-<button
-id="savePurchaseBtn"
->
-
-Save Changes
-
-</button>
-
-
-<button
-id="closeEditPurchaseBtn"
->
-
-Cancel
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<footer
-id="babbageFooter"
-></footer>
-
+</script>
 
 <script src="JS/auth.js"></script>
-<script src="ADMIN/authEngine.js"></script>
-<script src="ADMIN/phist.js"></script>
+<script src="JS/utils.js"></script>
+<script src="JS/products.js"></script>
+<script src="JS/pr.js"></script>
+<script src="ADMIN/doom.js"></script>
 
 </body>
-
 </html>
 
