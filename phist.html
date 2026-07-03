@@ -3,293 +3,400 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>Product Report</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-    <link
-        rel="stylesheet"
-        href="CSS/pr.css">
+<title>
+Purchase Management
+</title>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
+
+<link
+rel="stylesheet"
+href="ADMIN/phist.css"
+>
+
 </head>
 
 <body>
 
-<div class="report-page">
+<div class="container">
 
-    <!-- HAMBURGER MENU -->
-    <button id="menuToggle" class="menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
+<!-- HEADER -->
 
-    <!-- SIDEBAR OVERLAY -->
-    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+<div class="header">
 
-    <!-- HEADER -->
-    <header class="report-header">
+<h1>
 
-        <div>
-            <h1>Product Report</h1>
-            <p>Product performance and inventory analytics</p>
-        </div>
+Purchase Management
 
-        <div class="header-actions">
+</h1>
 
-            <a href="index.html">
-                <i class="fas fa-cash-register"></i>
-                POS
-            </a>
+<div>
 
-            <a href="phist.html">
-                <i class="fas fa-chart-line"></i>
-                Reports
-            </a>
+<a
+href="phistTable.html"
+class="btn add"
+id="purTableButton">
 
-        </div>
+<i class="fas fa-eye"></i>
 
-    </header>
+Show items
 
-    <!-- MAIN LAYOUT -->
-    <section class="report-layout">
+</a>
 
-        <!-- SIDEBAR -->
-        <aside class="report-sidebar" id="sidebar">
+<a
+href="products.html"
+class="btn add"
+>
 
-            <div class="stat-card">
-                <span>Products</span>
-                <h2 id="totalProducts">0</h2>
-            </div>
+<i class="fas fa-plus"></i>
 
-            <div class="stat-card">
-                <span>Inventory Value</span>
-                <h2 id="inventoryValue">K0.00</h2>
-            </div>
+Products / Stock
 
-            <div class="stat-card">
-                <span>Units Sold</span>
-                <h2 id="unitsSold">0</h2>
-            </div>
+</a>
 
-            <div class="stat-card">
-                <span>Profit</span>
-                <h2 id="profitToday">K0.00</h2>
-            </div>
 
-            <div class="stat-card warning">
-                <span>Low Stock</span>
-                <h2 id="lowStockCount">0</h2>
-            </div>
+<a
+href="purchase.html"
+class="btn add"
+>
 
-            <div class="stat-card danger">
-                <span>Out Of Stock</span>
-                <h2 id="outStockCount">0</h2>
-            </div>
+<i class="fas fa-plus"></i>
 
-            <h3>More</h3>
+New Purchase
 
-            <hr>
-            <a href="createStaff.html">
-                <i class="fas fa-user"></i>
-                Create User
-            </a>
-            <a href="products.html">
-                <i class="fas fa-box"></i>
-                Products
-            </a>
+</a>
 
-            <a href="purchase.html">
-                <i class="fas fa-shopping-cart"></i>
-                Purchase
-            </a>
 
-            <a href="reports.html">
-                <i class="fas fa-chart-line"></i>
-                Reports
-            </a>
-            <a href="sales.html">
-                <i class="fas fa-shopping-cart"></i>
-                <i class="fas fa-clock"></i>
-                Sales History
-            </a>
-            <a href="phistTable.html">
-                <i class="fas fa-history"></i>
-                Sales History
-            </a>
+<a
+href="index.html"
+class="btn"
+>
 
-            <a href="pr.html" onclick="abomination()">
-                <i class="fas fa-lock"></i>
-                Reset App
-            </a>
+Back To POS
 
-            <hr>
+</a>
 
-        </aside>
-
-        <!-- CONTENT -->
-        <main class="report-content">
-
-            <!-- FILTER BAR -->
-            <section class="filter-bar">
-
-                <div class="search-box">
-
-                    <i class="fas fa-search"></i>
-
-                    <input
-                        type="text"
-                        id="productSearch"
-                        placeholder="Search product...">
-
-                </div>
-
-                <select id="categoryFilter">
-
-                    <option value="">
-                        All Categories
-                    </option>
-
-                </select>
-
-                <select id="periodFilter">
-
-                    <option value="today">
-                        Today
-                    </option>
-
-                    <option value="week">
-                        This Week
-                    </option>
-
-                    <option value="month">
-                        This Month
-                    </option>
-
-                    <option value="all">
-                        All Time
-                    </option>
-
-                </select>
-
-                <button id="exportExcelBtn">
-                    <i class="fas fa-file-excel"></i>
-                    Excel
-                </button>
-
-                <button id="exportPdfBtn">
-                    <i class="fas fa-file-pdf"></i>
-                    PDF
-                </button>
-
-            </section>
-
-            <!-- PRODUCT TABLE -->
-            <section class="table-card">
-
-                <div class="table-header">
-
-                    <h2>Product Performance</h2>
-
-                    <span id="recordCount">
-                        0 Products
-                    </span>
-
-                </div>
-
-                <div class="table-wrapper">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Opening</th>
-                                <th>Purchased</th>
-                                <th>Sold</th>
-                                <th>Stock</th>
-                                <th>Cost</th>
-                                <th>Price</th>
-                                <th>Revenue</th>
-                                <th>Profit</th>
-                                <th>Status</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="reportTableBody">
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </section>
-
-        </main>
-
-    </section>
+</div>
 
 </div>
 
 
-<!-- SIDEBAR SCRIPT -->
-<script>
+<!-- TOOLBAR -->
 
-const menuBtn = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("sidebarOverlay");
+<div class="toolbar">
 
-menuBtn.addEventListener("click", ()=>{
+<div class="search-wrapper">
 
-    sidebar.classList.toggle("active");
-    overlay.classList.toggle("active");
+<i class="fas fa-search"></i>
 
-});
+<input
+type="text"
+id="purchaseSearch"
+placeholder="Search supplier or receipt..."
+>
 
+</div>
 
-overlay.addEventListener("click", ()=>{
-
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-
-});
+</div>
 
 
-// Optional desktop hover behavior
 
-if(window.innerWidth > 992){
+<!-- PURCHASE TABLE -->
 
-    sidebar.addEventListener("mouseenter", ()=>{
+<div class="table-wrapper">
 
-        sidebar.classList.add("active");
+<table>
 
-    });
+<thead>
 
-    sidebar.addEventListener("mouseleave", ()=>{
+<tr>
 
-        sidebar.classList.remove("active");
+<th>Receipt ID</th>
 
-    });
+<th>Supplier</th>
 
-}
+<th>Date</th>
 
-</script>
+<th>Items</th>
+
+<th>Total</th>
+
+<th></th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="purchaseTableBody"
+>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<!-- VIEW PURCHASE MODAL -->
+
+<div
+class="modal"
+id="purchaseActionModal"
+>
+
+<div
+class="modal-content action-modal"
+>
+
+<div class="modal-header">
+
+<h2
+id="receiptTitle"
+>
+
+Purchase
+
+</h2>
+
+<button
+id="closePurchaseModal"
+>
+
+<i class="fas fa-times"></i>
+
+</button>
+
+</div>
+
+
+<div
+class="purchase-details"
+>
+
+<p>
+
+<strong>Supplier:</strong>
+
+<span
+id="purchaseSupplier"
+></span>
+
+</p>
+
+
+<p>
+
+<strong>Date:</strong>
+
+<span
+id="purchaseDate"
+></span>
+
+</p>
+
+
+<p>
+
+<strong>Total:</strong>
+
+<span
+id="purchaseTotal"
+></span>
+
+</p>
+
+</div>
+
+
+<h3 class="section-title">
+
+Purchased Items
+
+</h3>
+
+
+<div
+class="items-wrapper"
+>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Qty</th>
+
+<th>Cost</th>
+
+<th>Subtotal</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="purchaseItemsTable"
+>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<div
+class="action-buttons"
+>
+
+<button
+id="editPurchaseBtn"
+>
+
+<i class="fas fa-pen"></i>
+
+Edit Purchase
+
+</button>
+
+
+<button
+id="deletePurchaseBtn"
+>
+
+<i class="fas fa-trash"></i>
+
+Delete Purchase
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<!-- EDIT PURCHASE MODAL -->
+
+<div
+class="modal"
+id="editPurchaseModal"
+>
+
+<div
+class="modal-content"
+>
+
+<h2>
+
+Edit Purchase
+
+</h2>
+
+
+<input
+type="hidden"
+id="editPurchaseId"
+>
+
+
+<h3 class="labo">
+
+Supplier
+
+</h3>
+
+<input
+id="editSupplier"
+type="text"
+placeholder="Supplier Name"
+>
+
+
+<div
+class="edit-items-container"
+id="editItemsContainer"
+>
+
+</div>
+
+
+<button
+class="add-item-btn"
+id="addItemBtn"
+>
+
+<i class="fas fa-plus"></i>
+
+Add Item
+
+</button>
+
+
+<div
+class="modal-actions"
+>
+
+<button
+id="savePurchaseBtn"
+>
+
+Save Changes
+
+</button>
+
+
+<button
+id="closeEditPurchaseBtn"
+>
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer
+id="babbageFooter"
+></footer>
+
 
 <script src="JS/auth.js"></script>
-<script src="JS/utils.js"></script>
-<script src="JS/products.js"></script>
-<script src="JS/pr.js"></script>
-<script src="ADMIN/doom.js"></script>
+<script src="ADMIN/authEngine.js"></script>
+<script src="ADMIN/phist.js"></script>
 
 </body>
+
 </html>
 
